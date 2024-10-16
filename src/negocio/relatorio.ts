@@ -110,4 +110,28 @@ export default class Relatorio {
             console.log(`${index + 1}. Cliente: ${cliente.nome}, Total Consumido: ${total}`);
         });
     }
+
+    public top5MelhoresGastadores(): void {
+        const clientesGastos: Array<{ cliente: Cliente; totalGasto: number }> = this.clientes.map(cliente => {
+            const totalProdutos = cliente.getProdutosConsumidos.reduce(
+                (sum, { produto }) => sum + produto.preco, 
+                0
+            );
+            const totalServicos = cliente.getServicosConsumidos.reduce(
+                (sum, { servico }) => sum + servico.preco, 
+                0
+            );
+
+            return { cliente, totalGasto: totalProdutos + totalServicos };
+        });
+
+        const top5Gastos = clientesGastos
+            .sort((a, b) => b.totalGasto - a.totalGasto)
+            .slice(0, 5);
+
+        console.log("Top 5 melhores gastadores:");
+        top5Gastos.forEach(({ cliente, totalGasto }, index) => {
+            console.log(`${index + 1}. Cliente: ${cliente.nome}, Total Gasto: R$${totalGasto.toFixed(2)}`);
+        });
+    }
 }

@@ -164,7 +164,8 @@ while (execucao) {
                     console.log(`2 - Produtos mais consumidos Por Tipo`);
                     console.log(`3 - Produtos mais consumidos (Geral)`);
                     console.log(`4 - Serviços mais consumidos (Geral)`);
-                    console.log(`5 - Melhores Clientes`);
+                    console.log(`5 - Top 10 Maiores Consumidores`);
+                    console.log(`6 - Top 5 Clientes que mais gastaram`);
                     console.log(`0 - Sair`);
                     switch(entrada.receberNumero('')){
                         case 1:
@@ -187,6 +188,10 @@ while (execucao) {
                             let topdez = new Relatorio(empresa.getClientes)
                             topdez.top10ClientesMaisConsumidores()
                             break
+                        case 6:
+                            let topCinco = new Relatorio(empresa.getClientes)
+                            topCinco.top5MelhoresGastadores()
+                            break;
                         default:
                             console.log('Comando não entendido')
                         
