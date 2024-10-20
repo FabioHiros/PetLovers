@@ -42,7 +42,7 @@ export default class Compra {
         
         }
         const pet = cliente.getPets[idxpet]
-        if (this.produtos.length>0 ) {
+        if (this.produtos.length>0 || this.servicos.length>0 ) {
         console.log(`Iniciando o registro de uma compra`);
         console.log('Deseja comprar:\n[1] - Produto\n[2] - Serviço')
         switch(this.entrada.receberNumero('')){

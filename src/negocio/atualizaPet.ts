@@ -33,7 +33,8 @@ export default class AtualizaPet extends Atualiza {
             console.log("---------------------------------------------------------")
         })
         let petIdx = this.entrada.receberNumero(`Digite o Index do animal que deseja alterar: `)
-        let pet = this.pets[petIdx]
+        let pet = petz[petIdx]
+        console.log(pet.getNome)
         console.log('Caso Não queria Atualizar o campo deixe em branco')
         let novoNome= this.entrada.receberTexto(`Digite o NOVO NOME: `)
         if (novoNome){
@@ -64,10 +65,10 @@ export default class AtualizaPet extends Atualiza {
             }
     
             // Remove the pet from the old owner's list
+            novoCliente.setPet(pet);
             cliente.removerPet(pet.id_pet);
     
             // Add the pet to the new owner's list
-            novoCliente.setPet(pet);
     
             // Update the pet's owner CPF
             pet.setCpfDono(novoDono);
