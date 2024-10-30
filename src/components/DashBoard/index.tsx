@@ -1,197 +1,80 @@
-import { Component } from "react";
+import React from 'react';
 
+const data = {
+  topClientsByQuantity: [
+    { name: 'Cliente 1', quantity: 20 },
+    { name: 'Cliente 2', quantity: 10 },
+    { name: 'Cliente 3', quantity: 5 },
+    { name: 'Cliente 4', quantity: 4 },
+    { name: 'Cliente 5', quantity: 3 },
+  ],
+  topProductsAndServices: [
+    { name: 'Produto 1', quantity: 20 },
+    { name: 'Serviço 4', quantity: 10 },
+    { name: 'Produto 3', quantity: 5 },
+    { name: 'Produto 4', quantity: 4 },
+    { name: 'Serviço 1', quantity: 3 },
+  ],
+  consumptionByPetType: [
+    { petType: 'Cachorro', name: 'Produto 1', quantity: 20 },
+    { petType: 'Cachorro', name: 'Serviço 4', quantity: 10 },
+    { petType: 'Cachorro', name: 'Produto 3', quantity: 5 },
+    { petType: 'Gato', name: 'Produto 4', quantity: 4 },
+    { petType: 'Gato', name: 'Serviço 1', quantity: 3 },
+  ],
+  consumptionByPetBreed: [
+    { petBreed: 'Golden', name: 'Produto 1', quantity: 20 },
+    { petBreed: 'Buldogue', name: 'Serviço 4', quantity: 10 },
+    { petBreed: 'Poodle', name: 'Produto 3', quantity: 5 },
+    { petBreed: 'SRD', name: 'Produto 4', quantity: 4 },
+    { petBreed: 'Siamês', name: 'Serviço 1', quantity: 3 },
+  ],
+  topClientsByValue: [
+    { name: 'Cliente 1', value: 'R$ 20' },
+    { name: 'Cliente 2', value: 'R$ 10' },
+    { name: 'Cliente 3', value: 'R$ 5' },
+    { name: 'Cliente 4', value: 'R$ 4' },
+    { name: 'Cliente 5', value: 'R$ 3' },
+  ],
+};
 
-export default class Dashboard extends Component {
-    render() {
-        return (
-            <div className="mx-auto mt-5 bg-azul-100">
-                {/* 10 clientes que mais consumiram em quantidade */}
-                <div className='mb-5 "bg-azul-100'>
-                    <h5 className="text-xl font-semibold mb-2">10 clientes que mais consumiram em quantidade</h5>
-                    <table className="min-w-full bg-white border border-gray-300 shadow-md">
-                        <thead className="bg-gray-100">
-                            <tr>
-                                <th className="py-2 tex px-4 border-b">Nome cliente</th>
-                                <th className="py-2 px-4 border-b">Quantidade</th>
-                            </tr>
-                        </thead>
-                        <tbody className="text-center">
-                            <tr>
-                                <td className="py-2 px-4  border-b">Cliente 1</td>
-                                <td className="py-2 px-4 border-b">20</td>
-                            </tr>
-                            <tr>
-                                <td className="py-2 px-4 border-b">Cliente 2</td>
-                                <td className="py-2 px-4 border-b">10</td>
-                            </tr>
-                            <tr>
-                                <td className="py-2 px-4 border-b">Cliente 3</td>
-                                <td className="py-2 px-4 border-b">5</td>
-                            </tr>
-                            <tr>
-                                <td className="py-2 px-4 border-b">Cliente 4</td>
-                                <td className="py-2 px-4 border-b">4</td>
-                            </tr>
-                            <tr>
-                                <td className="py-2 px-4 border-b">Cliente 5</td>
-                                <td className="py-2 px-4 border-b">3</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+const Dashboard = () => {
+  return (
+    <div className="mx-auto mt-5 bg-azul-100">
+      {Object.entries(data).map(([key, list]) => (
+        <div key={key} className="mb-5">
+          <h5 className="text-xl font-semibold mb-2">
+            {key
+              .replace(/([A-Z])/g, ' $1')
+              .replace(/^./, (str) => str.toUpperCase())
+              .replace('By', 'by')}
+          </h5>
+          <table className="min-w-full bg-white border border-gray-300 shadow-md">
+            <thead className="bg-gray-100">
+              <tr>
+                {Object.keys(list[0]).map((header) => (
+                  <th key={header} className="py-2 px-4 border-b">
+                    {header.replace(/^./, (str) => str.toUpperCase())}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="text-center">
+              {list.map((item, index) => (
+                <tr key={index}>
+                  {Object.values(item).map((value, idx) => (
+                    <td key={idx} className="py-2 px-4 border-b">
+                      {value}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ))}
+    </div>
+  );
+};
 
-                {/* Listagem geral de produtos e serviços mais consumidos */}
-                <div className='mb-5'>
-                    <h5 className="text-xl font-semibold mb-2">Listagem geral de produtos e serviços mais consumidos</h5>
-                    <table className="min-w-full bg-white border border-gray-300 shadow-md">
-                        <thead className="bg-gray-100">
-                            <tr>
-                                <th className="py-2 px-4 border-b">Nome</th>
-                                <th className="py-2 px-4 border-b">Quantidade</th>
-                            </tr>
-                        </thead>
-                        <tbody className="text-center">
-                            <tr>
-                                <td className="py-2 px-4 border-b">Produto 1</td>
-                                <td className="py-2 px-4 border-b">20</td>
-                            </tr>
-                            <tr>
-                                <td className="py-2 px-4 border-b">Serviço 4</td>
-                                <td className="py-2 px-4 border-b">10</td>
-                            </tr>
-                            <tr>
-                                <td className="py-2 px-4 border-b">Produto 3</td>
-                                <td className="py-2 px-4 border-b">5</td>
-                            </tr>
-                            <tr>
-                                <td className="py-2 px-4 border-b">Produto 4</td>
-                                <td className="py-2 px-4 border-b">4</td>
-                            </tr>
-                            <tr>
-                                <td className="py-2 px-4 border-b">Serviço 1</td>
-                                <td className="py-2 px-4 border-b">3</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                {/* Listagem dos serviços e produtos mais consumidos por tipo de pet */}
-                <div className='mb-5'>
-                    <h5 className="text-xl font-semibold mb-2">Listagem dos serviços e produtos mais consumidos por tipo de pet</h5>
-                    <table className="min-w-full bg-white border border-gray-300 shadow-md">
-                        <thead className="bg-gray-100">
-                            <tr>
-                                <th className="py-2 px-4 border-b">Tipo Pet</th>
-                                <th className="py-2 px-4 border-b">Nome</th>
-                                <th className="py-2 px-4 border-b">Quantidade</th>
-                            </tr>
-                        </thead>
-                        <tbody className="text-center">
-                            <tr>
-                                <td className="py-2 px-4 border-b">Cachorro</td>
-                                <td className="py-2 px-4 border-b">Produto 1</td>
-                                <td className="py-2 px-4 border-b">20</td>
-                            </tr>
-                            <tr>
-                                <td className="py-2 px-4 border-b">Cachorro</td>
-                                <td className="py-2 px-4 border-b">Serviço 4</td>
-                                <td className="py-2 px-4 border-b">10</td>
-                            </tr>
-                            <tr>
-                                <td className="py-2 px-4 border-b">Cachorro</td>
-                                <td className="py-2 px-4 border-b">Produto 3</td>
-                                <td className="py-2 px-4 border-b">5</td>
-                            </tr>
-                            <tr>
-                                <td className="py-2 px-4 border-b">Gato</td>
-                                <td className="py-2 px-4 border-b">Produto 4</td>
-                                <td className="py-2 px-4 border-b">4</td>
-                            </tr>
-                            <tr>
-                                <td className="py-2 px-4 border-b">Gato</td>
-                                <td className="py-2 px-4 border-b">Serviço 1</td>
-                                <td className="py-2 px-4 border-b">3</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                {/* Listagem dos serviços e produtos mais consumidos por raça de pet */}
-                <div className='mb-5'>
-                    <h5 className="text-xl font-semibold mb-2">Listagem dos serviços e produtos mais consumidos por raça de pet</h5>
-                    <table className="min-w-full bg-white border border-gray-300 shadow-md">
-                        <thead className="bg-gray-100">
-                            <tr>
-                                <th className="py-2 px-4 border-b">Raça Pet</th>
-                                <th className="py-2 px-4 border-b">Nome</th>
-                                <th className="py-2 px-4 border-b">Quantidade</th>
-                            </tr>
-                        </thead>
-                        <tbody className="text-center">
-                            <tr>
-                                <td className="py-2 px-4 border-b">Golden</td>
-                                <td className="py-2 px-4 border-b">Produto 1</td>
-                                <td className="py-2 px-4 border-b">20</td>
-                            </tr>
-                            <tr>
-                                <td className="py-2 px-4 border-b">Buldogue</td>
-                                <td className="py-2 px-4 border-b">Serviço 4</td>
-                                <td className="py-2 px-4 border-b">10</td>
-                            </tr>
-                            <tr>
-                                <td className="py-2 px-4 border-b">Poodle</td>
-                                <td className="py-2 px-4 border-b">Produto 3</td>
-                                <td className="py-2 px-4 border-b">5</td>
-                            </tr>
-                            <tr>
-                                <td className="py-2 px-4 border-b">SRD</td>
-                                <td className="py-2 px-4 border-b">Produto 4</td>
-                                <td className="py-2 px-4 border-b">4</td>
-                            </tr>
-                            <tr>
-                                <td className="py-2 px-4 border-b">Siamês</td>
-                                <td className="py-2 px-4 border-b">Serviço 1</td>
-                                <td className="py-2 px-4 border-b">3</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                {/* 5 clientes que mais consumiram em valor */}
-                <div className='mb-5'>
-                    <h5 className="text-xl font-semibold mb-2">5 clientes que mais consumiram em valor</h5>
-                    <table className="min-w-full bg-white border border-gray-300 shadow-md">
-                        <thead className="bg-gray-100">
-                            <tr>
-                                <th className="py-2 px-4 border-b">Nome cliente</th>
-                                <th className="py-2 px-4 border-b">Valor</th>
-                            </tr>
-                        </thead>
-                        <tbody className="text-center">
-                            <tr>
-                                <td className="py-2 px-4 border-b">Cliente 1</td>
-                                <td className="py-2 px-4 border-b">R$ 20</td>
-                            </tr>
-                            <tr>
-                                <td className="py-2 px-4 border-b">Cliente 2</td>
-                                <td className="py-2 px-4 border-b">R$ 10</td>
-                            </tr>
-                            <tr>
-                                <td className="py-2 px-4 border-b">Cliente 3</td>
-                                <td className="py-2 px-4 border-b">R$ 5</td>
-                            </tr>
-                            <tr>
-                                <td className="py-2 px-4 border-b">Cliente 4</td>
-                                <td className="py-2 px-4 border-b">R$ 4</td>
-                            </tr>
-                            <tr>
-                                <td className="py-2 px-4 border-b">Cliente 5</td>
-                                <td className="py-2 px-4 border-b">R$ 3</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        )
-    }
-}
+export default Dashboard;
