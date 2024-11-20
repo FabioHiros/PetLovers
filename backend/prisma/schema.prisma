@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Client {
+  id            Int       @id @default(autoincrement())
+  name          String
+  nomeSocial    String?   // Social name (optional)
+  email         String    @unique
+  cpf           String    @unique
+  endereco      Endereco? // Relation for a single address
+  phones        Phone[]   // Relation for multiple phone numbers
+  rg           String    @unique      // Relation for multiple RGs
+  pets          Pet[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  Purchase      Purchase[]
+}
+
+model Phone {
+  id        Int       @id @default(autoincrement())
+  ddd       String    // Area code for the phone number
+  numero    String    // Phone number
+  clientId  Int
+  client    Client    @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+
+
+model Pet {
+  id         Int      @id @default(autoincrement())
+  name       String
+  type       String
+  breed      String?
+  clientId   Int
+  client     Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  Purchase   Purchase[]
+}
+
+model Endereco {
+  id                  Int       @id @default(autoincrement())
+  estado              String    // State
+  cidade              String    // City
+  bairro              String    // Neighborhood
+  rua                 String    // Street
+  numero              String    // Address number
+  codigoPostal        String    // Postal code
+  informacoesAdicionais String? // Additional information (optional)
+  clientId            Int       @unique // One-to-one relationship with Client
+  client              Client    @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+}
+
+enum PurchaseType {
+  PRODUCT
+  SERVICE
+}
+
+model Purchase {
+  id         Int          @id @default(autoincrement())
+  clientId   Int
+  petId      Int
+  itemId     Int
+  quantity   Int
+  totalPrice Float
+  type       PurchaseType
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  client     Client        @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  pet        Pet           @relation(fields: [petId], references: [id], onDelete: Cascade)
+}
+
+model Product {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  price       Float
+}
+
+model Service {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  price       Float     
+}
