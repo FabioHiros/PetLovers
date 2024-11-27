@@ -41,7 +41,7 @@ const PetForm: React.FC<PetFormProps> = ({ onSubmit }) => {
       {/* Name */}
       <div className="mb-4">
         <label htmlFor="name" className="block text-sm font-medium">
-          Name
+          Nome
         </label>
         <input
           type="text"
@@ -59,7 +59,7 @@ const PetForm: React.FC<PetFormProps> = ({ onSubmit }) => {
       {/* Type */}
       <div className="mb-4">
         <label htmlFor="type" className="block text-sm font-medium">
-          Type
+          Tipo
         </label>
         <input
           type="text"
@@ -77,7 +77,7 @@ const PetForm: React.FC<PetFormProps> = ({ onSubmit }) => {
       {/* Breed */}
       <div className="mb-4">
         <label htmlFor="breed" className="block text-sm font-medium">
-          Breed
+          Raça
         </label>
         <input
           type="text"
@@ -93,7 +93,7 @@ const PetForm: React.FC<PetFormProps> = ({ onSubmit }) => {
       
       <div className="mb-4">
         <label htmlFor="clientId" className="block text-sm font-medium">
-          owner
+          Id do Dono
         </label>
         <input
           type="number"
@@ -112,7 +112,7 @@ const PetForm: React.FC<PetFormProps> = ({ onSubmit }) => {
           type="submit"
           className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition"
         >
-          Add Pet
+          Adicionar Pet
         </button>
       </div>
     </form>
