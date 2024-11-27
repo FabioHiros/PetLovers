@@ -10,4 +10,4 @@
 </p>
 
 <h2>Passo 2</h2>
-<p>Em outro terminal vá até a pasta src/executavel e digite o comando "java -jar pl.jar</p>
+<p>Em outro terminal vá até a pasta src/executavel e digite o comando "java -jar pl.jar"</p>
